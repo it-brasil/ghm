@@ -23,7 +23,7 @@
                 'web',
                 'br_base',
                 'br_account',
-                'sale',
+                'br_sale',
                 'purchase'],
 
     # always loaded

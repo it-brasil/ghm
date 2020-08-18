@@ -1,0 +1,30 @@
+<odoo>
+
+
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.extension</field>
+            <field name="model">sale.order</field>
+	        <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="after">
+                    <field name="percentual_mva"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/form/group/group/field[@name='tax_id']" position="after">
+                    <field name="percentual_mva"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_sales_order_filter_inherit" model="ir.ui.view">
+            <field name="name">sale.order.list.select.extension</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <filter name="my_sale_orders_filter" position="before">
+                    <filter name="today" string="Hoje" domain="[('date_order', '&gt;=', datetime.datetime.now().replace(hour=0, minute=0, second=0)),('date_order', '&lt;=', datetime.datetime.now().replace(hour=23, minute=59, second=59))]" />
+                    <separator/>
+                </filter>
+            </field>
+        </record>
+
+</odoo>

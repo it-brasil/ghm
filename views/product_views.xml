@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright © 2018; Brasil; By Brenno Campos Garcia; Todos os direitos reservados
+    Copyright © 2018; Brazil; By Brenno Campos Garcia; All rights reserved
+
+-->
+<odoo>
+    <!-- Product inherit -->
+    <record id="product_template_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.common.form.extension</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="list_price" position="after">
+                <field name="margin_based_cost" />
+                <field name="cost_based_supplier" />
+                <field name="currency_conversion" />
+            </field>
+            <xpath expr="//page[1]" position="after">
+                <page name="ghm_page" string="Informações da GHM">
+                    <div>
+                        <div string="Compras">
+<!--
+                            <label for="partner_id"/>
+                            <field name="partner_id" string="Fornecedor Principal"/>
+-->
+                            <separator/>
+                            <label for="order_code_ghm"/>
+                            <field name="order_code_ghm" string="Cod da Compra"/>
+                        </div>
+                        <div string="Nomes">
+                            <label for="name_english_ghm"/>
+                            <field name="name_english_ghm" string="Nome em Inglês"/>
+                            <label for="name_french_ghm"/>
+                            <field name="name_french_ghm" string="Nome em Francês"/>
+                            <label for="name_spanish_ghm"/>
+                            <field name="name_spanish_ghm" string="Nome em Espanhol"/>
+                            <label for="name_portuguese_ghm"/>
+                            <field name="name_portuguese_ghm" string="Nome em Português"/>
+                            <separator/>
+                        </div>
+                        <div string="Descrições">
+                            <label for="desc_german_ghm"/>
+                            <field name="desc_german_ghm" string="Descrição em Alemão"/>
+                            <label for="desc_english_ghm"/>
+                            <field name="desc_english_ghm" string="Descrição em Inglês"/>
+                            <label for="desc_french_ghm"/>
+                            <field name="desc_french_ghm" string="Descrição em Francês"/>
+                            <label for="desc_spanish_ghm"/>
+                            <field name="desc_spanish_ghm" string="Descrição em Espanhol"/>
+                            <label for="desc_portuguese_ghm"/>
+                            <field name="desc_portuguese_ghm" string="Descrição em Português"/>
+                            <separator/>
+                        </div>
+                        <div string="Outras Informações">
+                            <label for="typical_delivery_time_ghm"/>
+                            <field name="typical_delivery_time_ghm" string="Tempo de Entrega Típico"/>
+                            <label for="discount_group_ghm"/>
+                            <field name="discount_group_ghm" string="Grupo de Desconto"/>
+                            <label for="price_structure_group_ghm"/>
+                            <field name="price_structure_group_ghm" string="Grupo de Estrutura de Preço"/>
+                            <label for="release_for_processing_ghm"/>
+                            <field name="release_for_processing_ghm" string="Liberação para Processamento"/>
+                            <label for="goods_n_ghm"/>
+                            <field name="goods_n_ghm" string="Número do Recebimento"/>
+                            <label for="gtin_ghm"/>
+                            <field name="gtin_ghm" string="GTIN"/>
+                            <label for="max_qty_for_delivery_time"/>
+                            <field name="max_qty_for_delivery_time" string="Quantidade Máxima para o Tempo de Entrega"/>
+                            <label for="last_production_ghm"/>
+                            <field name="last_production_ghm" string="Última Produção"/>
+                            <label for="article_category"/>
+                            <field name="article_category" string="Categoria do Artigo"/>
+                        </div>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_search_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.search.extension</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search[1]" position="inside">
+                <field name="article_category" string="Categoria do Artigo"/>
+                <group expand="0" string="Group By">
+                    <filter name="article_category" string="Categoria do Artigo"
+                            domain="[]" context="{'group_by' : 'article_category'}" />
+                </group>
+            </xpath>
+            <field name="name" position="replace">
+                <field name="name" string="Product Name" filter_domain="[
+                '|', '|', '|', '|', '|', '|', '|', '|',
+                ('default_code', 'ilike', self),
+                ('product_variant_ids.default_code', 'ilike', self),
+                ('name', 'ilike', self), ('barcode', 'ilike', self),
+                ('name_english_ghm', 'ilike', self),
+                ('name_french_ghm', 'ilike', self),
+                ('name_spanish_ghm', 'ilike', self),
+                ('name_portuguese_ghm', 'ilike', self),
+                ('order_code_ghm', 'ilike', self)]"/>
+                <field name="desc_german_ghm" string="Product Description" filter_domain="[
+                '|', '|', '|', '|',
+                ('desc_german_ghm', 'ilike', self),
+                ('desc_english_ghm', 'ilike', self),
+                ('desc_french_ghm', 'ilike', self),
+                ('desc_spanish_ghm', 'ilike', self),
+                ('desc_portuguese_ghm', 'ilike', self)]"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_product_tree_view_inherit" model="ir.ui.view">
+        <field name="name">product.product.tree.extension</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="default_code" position="after">
+                <field name="order_code_ghm" string="Cod da Compra"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_product_template_gerapreco" model="ir.ui.view">
+        <field name="name">Gera Preço</field>
+        <field name="model">product.template.gerapreco</field>
+        <field name="arch" type="xml">
+            <form string="Gerar Preço de Venda">
+                <p class="oe_mt32 text-justify">
+                    TEM CERTEZA QUE DESEJA GERAR O PREÇO DE VENDA?
+                </p>
+                <footer>
+                    <button name="gera_preco" string="Gerar" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_supplierinfo_form_view" model="ir.ui.view">
+        <field name="name">product.supplierinfo.form.view</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/group" position="inside">
+                <field name="fornecedor_padrao" string="Fornecedor Padrão"/>
+            </xpath>
+            <label for="date_start" position="before">
+                <field name="supplier_discount" />
+            </label>
+        </field>
+    </record>
+
+    <record id="product_supplierinfo_tree_view_inherit" model="ir.ui.view">
+        <field name="name">product.supplierinfo.tree.view.extension</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="fornecedor_padrao" string="Fornecedor Padrão"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_view_product_template_gerapreco" model="ir.actions.act_window">
+        <field name="name">Gera Preço</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template.gerapreco</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_product_template_gerapreco"/>
+    </record>
+
+    <act_window id="product_template_gerapreco"
+                name="Gera Preço"
+                src_model="product.template"
+                res_model="product.template.gerapreco"
+                view_type="form" view_mode="form"
+                key2="client_action_multi" target="new"
+                groups= "sales_team.group_sale_salesman,sales_team.group_sale_manager"
+    />
+
+</odoo>

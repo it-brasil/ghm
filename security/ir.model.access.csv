@@ -1,0 +1,16 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+
+"access_ghm_enterprise_type_public","ghm_enterprise_type_group_public","model_enterprise_type",base.group_public,1,0,0,0
+"access_ghm_enterprise_type_portal","ghm_enterprise_type_group_portal","model_enterprise_type",base.group_portal,1,0,0,0
+"access_ghm_enterprise_type_manager","ghm_enterprise_type_group_partner_manager","model_enterprise_type",base.group_partner_manager,1,1,1,0
+"access_ghm_enterprise_type_user","ghm_enterprise_type_group_user","model_enterprise_type",base.group_user,1,0,0,0
+
+"access_ghm_industry_type_public","ghm_industry_type_group_public","model_industry_type",base.group_public,1,0,0,0
+"access_ghm_industry_type_portal","ghm_industry_type_group_portal","model_industry_type",base.group_portal,1,0,0,0
+"access_ghm_industry_type_manager","ghm_industry_type_group_partner_manager","model_industry_type",base.group_partner_manager,1,1,1,0
+"access_ghm_industry_type_user","ghm_industry_type_group_user","model_industry_type",base.group_user,1,0,0,0
+
+"access_ghm_business_market_public","ghm_business_market_group_public","model_business_market",base.group_public,1,0,0,0
+"access_ghm_business_market_portal","ghm_business_market_group_portal","model_business_market",base.group_portal,1,0,0,0
+"access_ghm_business_market_manager","ghm_business_market_group_partner_manager","model_business_market",base.group_partner_manager,1,1,1,0
+"access_ghm_business_market_user","ghm_business_market_group_user","model_business_market",base.group_user,1,0,0,0

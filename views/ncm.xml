@@ -1,0 +1,19 @@
+<odoo>
+        <record id="view_ncm_form" model="ir.ui.view">
+            <field name="name">view.ncm.form</field>
+            <field name="model">product.fiscal.classification</field>
+            <field name="inherit_id" ref="br_account.view_br_account_product_fiscal_classification_form"/>
+            <field name="arch" type="xml">
+                <group name="general" position="after">
+                    <group name="ghm_taxes" string="GHM - Impostos de importação">
+                        <field name="imposto_ii"/>
+                        <field name="imposto_ipi"/>
+                        <field name="imposto_pis"/>
+                        <field name="imposto_cofins"/>
+                        <field name="imposto_icms"/>
+                        <field name="margem_lucro"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+</odoo>

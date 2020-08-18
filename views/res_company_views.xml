@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_company_form_inherit" model="ir.ui.view">
+            <field name="name">res.company.form.extension</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='social_media']" position="before">
+                    <group name="vendas" string="Vendas">
+                        <field name="property_product_pricelist" string="Lista de Preços Padrão"/>
+                    </group>
+                </xpath>
+                <field name="district" position="after">
+                    <label for="city" string="Cidade Estrangeira"/>
+                    <field name="city" placeholder="Cidade" class="o_address_city"/>
+                </field>
+                <field name="cnpj_cpf" position="attributes">
+                    <attribute name="required">True</attribute>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

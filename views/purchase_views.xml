@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="purchase_order_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.form.extension</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='discount']" position="replace">
+                    <field name="cp_visivel" string="Deixar os Campos Desconto e Impostos Invisível"
+                           invisible="1"/>
+                    <field name="discount" string="Desconto (%)"
+                           placeholder="ADICIONAR PORCENTAGEM DE DESCONTO"
+                           attrs="{'invisible': [('cp_visivel', '=', True)]}"/>
+                </xpath>
+                <field name="date_order" position="after">
+                    <field name="cp_visivel" string="Deixar os Campos Desconto e Impostos Invisível"/>
+                </field>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='taxes_id']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('cp_visivel', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//sheet" position="after">
+                    <footer>
+                        <button name="gera_precocusto" string="Gerar Preço de Custo e de Venda" type="object" class="btn-primary"/>
+                        <button name="gera_linhas" string="Gerar Produtos do Fornecedor" type="object" class="oe_right btn-secondary"/>
+                    </footer>
+            </xpath>
+            </field>
+        </record>
+
+</odoo>

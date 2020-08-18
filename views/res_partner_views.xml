@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright © 2018; Brasil; By Brenno Campos Garcia; Todos os direitos reservados
+    Copyright © 2018; Brazil; By Brenno Campos Garcia; All rights reserved
+
+-->
+<odoo>
+
+        <record id="view_partner_tree_inherit" model="ir.ui.view">
+            <field name="name">res.partner.tree.extension</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <field name="level" string="Prioridade"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_enterprise_type_form" model="ir.ui.view">
+            <field name="name">enterprise.type.form</field>
+            <field name="model">enterprise.type</field>
+            <field name="arch" type="xml">
+                <form string="Tipo de Empresa">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" string="Descrição"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_enterprise_type_tree" model="ir.ui.view">
+            <field name="name">enterprise.type.tree</field>
+            <field name="model">enterprise.type</field>
+            <field name="arch" type="xml">
+                <tree string="Tipo de Empresa">
+                    <field name="name" string="Descrição"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_industry_type_form" model="ir.ui.view">
+            <field name="name">industry.type.form</field>
+            <field name="model">industry.type</field>
+            <field name="arch" type="xml">
+                <form string="Tipo de Indústria">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" string="Descrição"/>
+                                <field name="partner_ids" string="Colaboradores Vinculados" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_enterprise_type_tree" model="ir.ui.view">
+            <field name="name">industry.type.tree</field>
+            <field name="model">industry.type</field>
+            <field name="arch" type="xml">
+                <tree string="Tipo de Indústria">
+                    <field name="name" string="Descrição"/>
+                    <field name="partner_ids" string="Colaboradores Vinculados"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_business_market_form" model="ir.ui.view">
+            <field name="name">business.market.form</field>
+            <field name="model">business.market</field>
+            <field name="arch" type="xml">
+                <form string="Tipo de Indústria">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" string="Descrição"/>
+                                <field name="partner_ids" string="Colaboradores Vinculados" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_business_market_tree" model="ir.ui.view">
+            <field name="name">business.market.tree</field>
+            <field name="model">business.market</field>
+            <field name="arch" type="xml">
+                <tree string="Mercados de Atuação">
+                    <field name="name" string="Descrição"/>
+                    <field name="partner_ids" string="Colaboradores Vinculados"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.extension</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="br_base.view_br_base_partner_form" />
+            <field name="arch" type="xml">
+                <field name="cnpj_cpf" position="attributes">
+                    <attribute name="required">True</attribute>
+                </field>
+                <field name="district" position="after">
+                    <label for="city" string="Cidade Estrangeira"/>
+                    <field name="city" placeholder="Cidade" class="o_address_city"
+                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                </field>
+                <field name="mobile" position="after">
+                    <field name="fax" string="Fax"/>
+                </field>
+                <field name="website" position="after">
+                    <field name="livechat" string="Livechat"/>
+                </field>
+                <xpath expr="//page[1]" position="before">
+                    <page name="page_details" string="Detalhes" autofocus="autofocus">
+                        <group>
+                            <group string="Informações do Parceiro">
+                                <field name="enterprise_type_id" string="Tipo da Empresa"/>
+                                <field name="industry_type_ids" string="Tipo da Indústria" widget="many2many_tags"/>
+                                <field name="market_ids" string="Mercado de Atuação do Colaborador" widget="many2many_tags"/>
+                            </group>
+                            <group string="Renda">
+                                <field name="annual_income" string="Rendimento Anual"/>
+                                <field name="level" string="Prioridade"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <group name="purchase" position="inside">
+                    <field name="discount" string="Desconto do Fornecedor"/>
+                </group>
+            </field>
+        </record>
+
+        <record id="action_enterprise_type" model="ir.actions.act_window">
+            <field name="name">Tipo de Empresa</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">enterprise.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_industry_type" model="ir.actions.act_window">
+            <field name="name">Tipo de Indústria</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">industry.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_business_market" model="ir.actions.act_window">
+            <field name="name">Mercado de Atuação</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">business.market</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_enterprise_type"
+                  id="menu_enterprise_type_contacts"
+                  parent="contacts.res_partner_menu_config"
+                  sequence="-3"
+        />
+
+        <menuitem action="action_industry_type"
+                  id="menu_industry_type_contacts"
+                  parent="contacts.res_partner_menu_config"
+                  sequence="-2"
+        />
+
+        <menuitem action="action_business_market"
+                  id="menu_business_market_contacts"
+                  parent="contacts.res_partner_menu_config"
+                  sequence="-1"
+        />
+
+</odoo>

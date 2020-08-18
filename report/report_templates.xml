@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_layout_background_inherit" inherit_id="web.external_layout_background">
+        <xpath expr="//span[@t-field='company.partner_id']" position="before">
+            <span t-field="company.cnpj_cpf"/>
+	</xpath>
+    </template>
+</odoo>
